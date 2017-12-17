@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:component-scan base-package="test.HAndM.solution" />
+<!-- <context:component-scan base-package="test.HAndM.solution" use-default-filters="false"> -->
+<!-- <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation" /> -->
+<!-- </context:component-scan> -->
+	
+	<mvc:annotation-driven />
+	
+    <mvc:default-servlet-handler />
+
+	<!-- Freemarker config -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/UITemplate/" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="locale">en_UK</prop>
+				<!-- <prop key="default_encoding">UTF-8</prop>
+				<prop key="output_encoding">UTF-8</prop>
+				<prop key="url_escaping_charset">UTF-8</prop>-->
+				<prop key="auto_import">
+					includes/spring.ftl as spring
+				</prop>
+				<prop key="localized_lookup">true</prop>
+				<prop key="strict_syntax">true</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="template_exception_handler">rethrow</prop>
+			</props>
+		</property>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+	
+	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="false" />
+        <property name="suffix" value=".ftl"/>
+        <!-- Enable spring Macros -->
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+	</bean>
+	
+</beans>
