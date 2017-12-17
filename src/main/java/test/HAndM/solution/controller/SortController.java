@@ -1,8 +1,5 @@
 /*
  * DemoController.java
- * Copyright 2016 Diligenta.
- * All rights reserved.
- *
  */
 package test.HAndM.solution.controller;
 
